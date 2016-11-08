@@ -1,6 +1,6 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
+  "name": "Mobile Diet App",
+  "author": "Alejandro Quadri",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
