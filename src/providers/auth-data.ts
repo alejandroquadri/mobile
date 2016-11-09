@@ -1,18 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the AuthData provider.
+import { AngularFire } from 'angularfire2';
+// hay cosas que voy a usar directamente con el JS SDK
+// dessde AF@ beta6 no es necesario importar el JS SDK para usarlo
+// con AngularFire basta
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class AuthData {
+  fireAuth: any;
 
-  constructor(public http: Http) {
-    console.log('Hello AuthData Provider');
+  constructor( public af: AngularFire ) {
+    af.auth.subscribe( user => {
+      if (user) {
+        this.fireAuth = user.auth;
+        console.log(user);
+      }
+    });
+  }
+
+  loginUser(newEmail: string, newPassword: string): any {
+    return this.af.auth.login({ email: newEmail, password: newPassword });
+  }
+
+  // para esto uso el JS SDK, no esta disponible todavia en AF2
+  resetPassword(email: string): any {
+    return firebase.auth().sendPasswordResetEmail(email);
+  }
+
+  logoutUser(): any {
+    return this.af.auth.logout();
+  }
+
+  signupUser(newEmail: string, newPassword: string): any {
+    return this.af.auth.createUser({ email: newEmail, password: newPassword });
   }
 
 }
