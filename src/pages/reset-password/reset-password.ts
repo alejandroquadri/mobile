@@ -18,7 +18,7 @@ export class ResetPasswordPage {
   constructor(
     public authData: AuthData,
     public formBuilder: FormBuilder,
-    public nav: NavController,
+    public navCtrl: NavController,
     public alertCtrl: AlertController
   ) {
 
@@ -55,7 +55,7 @@ export class ResetPasswordPage {
               text: "Ok",
               role: 'cancel',
               handler: () => {
-                this.nav.pop();
+                this.navCtrl.pop();
               }
             }
           ]

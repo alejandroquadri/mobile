@@ -3,13 +3,17 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 // paginas importadas
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+import { DiaryPage } from '../pages/diary/diary';
+import { ChatPage } from '../pages/chat/chat';
+import { MePage } from '../pages/me/me';
+import { ConfigPage } from '../pages/config/config';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { SignupPage } from '../pages/signup/signup';
+import { ProfilePage } from '../pages/profile/profile';
+import { ProgressPage } from '../pages/progress/progress';
+import { CoachPage } from '../pages/coach/coach';
 
 // providers importados
 import { AuthData } from '../providers/auth-data';
@@ -35,13 +39,17 @@ const myFirebaseAuthConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    DiaryPage,
+    ChatPage,
+    MePage,
+    ConfigPage,
     TabsPage,
     LoginPage,
     ResetPasswordPage,
-    SignupPage
+    SignupPage,
+    ProfilePage,
+    ProgressPage,
+    CoachPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -50,13 +58,17 @@ const myFirebaseAuthConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    DiaryPage,
+    ChatPage,
+    MePage,
+    ConfigPage,
     TabsPage,
     LoginPage,
     ResetPasswordPage,
-    SignupPage
+    SignupPage,
+    ProfilePage,
+    ProgressPage,
+    CoachPage
   ],
   providers: [
     AuthData

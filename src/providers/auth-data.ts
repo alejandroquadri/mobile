@@ -8,12 +8,14 @@ import { AngularFire } from 'angularfire2';
 @Injectable()
 export class AuthData {
   fireAuth: any;
+  public userProfile: any;
 
   constructor( public af: AngularFire ) {
+    this.userProfile = firebase.database().ref('/userProfile');
     af.auth.subscribe( user => {
       if (user) {
         this.fireAuth = user.auth;
-        console.log(user);
+        console.log('devuelve usuario', user);
       }
     });
   }
@@ -32,7 +34,14 @@ export class AuthData {
   }
 
   signupUser(newEmail: string, newPassword: string): any {
-    return this.af.auth.createUser({ email: newEmail, password: newPassword });
+    return this.af.auth.createUser({ email: newEmail, password: newPassword })
+    .then(newUser => {
+      this.userProfile.child(newUser.uid).set({email:newEmail});
+    })
+  }
+
+  currentUser(): any {
+    return firebase.auth().currentUser;
   }
 
 }
