@@ -17,6 +17,7 @@ import { CoachPage } from '../pages/coach/coach';
 
 // providers importados
 import { AuthData } from '../providers/auth-data';
+import { ProfileData } from '../providers/profile-data';
 
 // importo AngularFire2 module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -71,7 +72,8 @@ const myFirebaseAuthConfig = {
     CoachPage
   ],
   providers: [
-    AuthData
+    AuthData,
+    ProfileData
   ]
 })
 export class AppModule {}

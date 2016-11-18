@@ -1,18 +1,60 @@
-<!--
-  Generated template for the Profile page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Perfil</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="logOut()">Salir
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <div padding>
+    <img [src]="avatar" (click)="updateAvatar()">
+  </div>
+
+  <form padding (ngSubmit)="updateUser()" #form="ngForm" novalidate>
+
+    <ion-list>
+
+      <ion-item>
+        <ion-input [(ngModel)]="profileForm.firstName" name="firstName" type="text" placeholder="Nombre">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input [(ngModel)]="profileForm.lastName" name="lastName" type="text" placeholder="Apellido">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input [(ngModel)]="profileForm.alias" name="alias" type="text" placeholder="Apodo">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha nacimiento</ion-label>
+        <ion-datetime [(ngModel)]="profileForm.birthDate" name="birthday"  displayFormat="D MMM YYYY" pickerFormat="D MMM YYYY">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea [(ngModel)]="profileForm.bio"  name="bio" type="textarea" placeholder="Bio">
+        </ion-textarea>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button ion-button block type="submit">Guardar</button>
+    </div>
+
+
+  </form>
 
 </ion-content>

@@ -44,4 +44,8 @@ export class AuthData {
     return firebase.auth().currentUser;
   }
 
+  updateAlias(alias: string): any{
+    firebase.auth().currentUser.updateProfile({displayName: alias})
+  }
+
 }
