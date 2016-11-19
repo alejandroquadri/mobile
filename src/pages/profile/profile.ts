@@ -16,7 +16,7 @@ export class ProfilePage {
     firstName: '',
     lastName: '',
     bio: '',
-    alias: '',
+    displayName: '',
     birthDate: '',
   }
   public profileAF: any;
@@ -46,8 +46,9 @@ export class ProfilePage {
   updateUser(){
     console.log('update user', this.profileForm)
     this.profileData.updateProfile(this.profileForm);
-    if (this.profileForm.alias !== ''){
-      this.authData.updateAlias(this.profileForm.alias);
+    if (this.profileForm.displayName !== ''){
+      let form = {displayName: this.profileForm.displayName}
+      this.authData.updateAlias(form);
     }
   }
 
