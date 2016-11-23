@@ -15,7 +15,9 @@
 <ion-content padding>
 
   <div padding>
-    <img [src]="avatar" (click)="updateAvatar()">
+    <!-- <img [src]="profileForm.photoURL || avatar" (click)="updateAvatar()"> -->
+    <img [src]="current.photoURL || avatar" (click)="updateAvatar()">
+
   </div>
 
   <form padding (ngSubmit)="updateUser()" #form="ngForm" novalidate>
@@ -23,28 +25,32 @@
     <ion-list>
 
       <ion-item>
-        <ion-input [(ngModel)]="profileForm.firstName" name="firstName" type="text" placeholder="Nombre">
+        <ion-label fixed>Nombre</ion-label>
+        <ion-input [(ngModel)]="profileForm.firstName" name="firstName" type="text">
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input [(ngModel)]="profileForm.lastName" name="lastName" type="text" placeholder="Apellido">
+        <ion-label fixed>Apellido</ion-label>
+        <ion-input [(ngModel)]="profileForm.lastName" name="lastName" type="text">
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input [(ngModel)]="profileForm.displayName" name="displayName" type="text" placeholder="Apodo">
+        <ion-label fixed>Apodo</ion-label>
+        <ion-input [(ngModel)]="profileForm.displayName" name="displayName" type="text">
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Fecha nacimiento</ion-label>
+        <ion-label fixed>Cumpleaños</ion-label>
         <ion-datetime [(ngModel)]="profileForm.birthDate" name="birthday"  displayFormat="D MMM YYYY" pickerFormat="D MMM YYYY">
         </ion-datetime>
       </ion-item>
 
       <ion-item>
-        <ion-textarea [(ngModel)]="profileForm.bio"  name="bio" type="textarea" placeholder="Bio">
+        <ion-label fixed>Bio</ion-label>
+        <ion-textarea [(ngModel)]="profileForm.bio"  name="bio" type="textarea" >
         </ion-textarea>
       </ion-item>
 

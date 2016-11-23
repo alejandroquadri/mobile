@@ -18,6 +18,7 @@ import { CoachPage } from '../pages/coach/coach';
 // providers importados
 import { AuthData } from '../providers/auth-data';
 import { ProfileData } from '../providers/profile-data';
+import { CameraService } from '../providers/camera-service';
 
 // importo AngularFire2 module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -56,7 +57,9 @@ const myFirebaseAuthConfig = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
-  bootstrap: [IonicApp],
+  bootstrap: [
+    IonicApp
+  ],
   entryComponents: [
     MyApp,
     DiaryPage,
@@ -73,7 +76,8 @@ const myFirebaseAuthConfig = {
   ],
   providers: [
     AuthData,
-    ProfileData
+    ProfileData,
+    CameraService
   ]
 })
 export class AppModule {}

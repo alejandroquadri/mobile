@@ -16,14 +16,14 @@ export class ProfileData {
     public authData: AuthData
   ) {}
 
-  updateProfile(form){
+  updateProfile(form): any{
     return this.af.database.object(`/userProfile/${this.currentUser.uid}`).update(form)
-    .then(() => {
-      console.log('actualizado provider');
+    .then((profile) => {
+      console.log('updated profile', profile);
     })
   }
 
-  getProfile(){
+  getProfile(): any{
     this.currentUser = this.authData.currentUser();
     return this.af.database.object(`/userProfile/${this.currentUser.uid}`, { preserveSnapshot: true })
   }

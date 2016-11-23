@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { AngularFire } from 'angularfire2';
-// hay cosas que voy a usar directamente con el JS SDK
-// dessde AF@ beta6 no es necesario importar el JS SDK para usarlo
-// con AngularFire basta
 
 @Injectable()
 export class AuthData {
-  fireAuth: any;
+  public fireAuth: any;
   public userProfile: any;
 
   constructor( public af: AngularFire ) {
@@ -15,7 +11,7 @@ export class AuthData {
     af.auth.subscribe( user => {
       if (user) {
         this.fireAuth = user.auth;
-        console.log('devuelve usuario', user);
+        console.log('current user', user);
       }
     });
   }
@@ -40,12 +36,15 @@ export class AuthData {
     })
   }
 
-  currentUser(): any {
-    return firebase.auth().currentUser;
+  currentUser():any {
+    return this.fireAuth;
   }
 
-  updateAlias(form){
-    firebase.auth().currentUser.updateProfile(form)
+  updateAuthProfile(form){
+    return firebase.auth().currentUser.updateProfile(form)
+    .then((user) => {
+      console.log('usuario actualizado', user);
+    })
   }
 
 }
