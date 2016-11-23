@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Camera } from 'ionic-native';
 import { ActionSheetController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
+import firebase from 'firebase';
 
 import { AuthData } from './auth-data';
 
@@ -77,7 +78,7 @@ export class CameraService {
     // PHOTOLIBRARY : 0, CAMERA : 1, SAVEDPHOTOALBUM : 2
     return new Promise((resolve, reject) => {
       Camera.getPicture({
-        quality: 70,
+        quality: 50,
         destinationType: Camera.DestinationType.DATA_URL,
         sourceType: source,
         allowEdit: true,
