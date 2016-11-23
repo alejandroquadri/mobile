@@ -14,26 +14,26 @@
     <ion-item>
       <ion-label stacked>Email</ion-label>
       <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
-        placeholder="Your email address"
+        placeholder="Tu cuenta de email"
         [class.invalid]="!loginForm.controls.email.valid &&
           (emailChanged || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  &&
       (emailChanged || submitAttempt)">
-      <p>Please enter a valid email.</p>
+      <p>Por favor ingresa un email valido</p>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Password</ion-label>
       <ion-input #password formControlName="password" type="password"
         (change)="elementChanged(password)"
-        placeholder="Your password"
+        placeholder="Contraseña"
         [class.invalid]="!loginForm.controls.password.valid &&
           (passwordChanged || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  &&
       (passwordChanged || submitAttempt)">
-      <p>Your password needs more than 6 characters.</p>
+      <p>Tu contraseña debe contener al menos 6 caracteres</p>
     </ion-item>
 
     <button ion-button block type="submit">
@@ -43,11 +43,11 @@
   </form>
 
   <button ion-button block clear (click)="goToResetPassword()">
-    I forgot my password 🙁
+    Olvide mi contraseña
   </button>
 
-  <button ion-button block clear (click)="createAccount()">
-    Create a new account
+  <button padding ion-button block clear (click)="createAccount()">
+    Crear nueva cuenta
   </button>
 
 </ion-content>

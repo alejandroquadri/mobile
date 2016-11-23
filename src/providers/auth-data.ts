@@ -32,7 +32,7 @@ export class AuthData {
   signupUser(newEmail: string, newPassword: string): any {
     return this.af.auth.createUser({ email: newEmail, password: newPassword })
     .then(newUser => {
-      this.userProfile.child(newUser.uid).set({email:newEmail});
+      this.userProfile.child(newUser.uid).set({email:newEmail, coach: false});
     })
   }
 
