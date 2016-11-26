@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Camera } from 'ionic-native';
 import { ActionSheetController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
-import firebase from 'firebase';
 
 import { AuthData } from './auth-data';
 
@@ -12,18 +11,13 @@ export class CameraService {
 
   public image: any
   public url: any
-  public imageRef: any
-  public currentUser: any
-  public profilePictureRef: any;
+  // public currentUser: any
 
   constructor(
     public asCtrl: ActionSheetController,
     public af: AngularFire,
     public authData: AuthData
-  ) {
-    this.imageRef = firebase.storage().ref('/images');
-    this.profilePictureRef = firebase.storage().ref('/guestProfile');
-  }
+  ) {}
 
   getImageUrl(nombre){
     return new Promise((resolve, reject)  => {
@@ -38,7 +32,6 @@ export class CameraService {
         })
       })
     })
-
   }
 
   openActionSheet() {
@@ -99,9 +92,10 @@ export class CameraService {
   savePicture(nombre, imageData){
 
     return new Promise((resolve, reject) => {
-      console.log('arranca savePicture', nombre, imageData);
-      this.currentUser = this.authData.currentUser();
-      this.imageRef.child(this.currentUser.uid).child(nombre)
+      console.log('arranca savePicture', nombre);
+      let imageRef = firebase.storage().ref('/images')
+      console.log(imageRef);
+      firebase.storage().ref('/images').child(this.authData.current.uid).child(nombre)
       .putString(imageData, 'base64', {contentType:'image/png'})
       .then((savedImage) => {
         console.log('url', savedImage.downloadURL);

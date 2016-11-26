@@ -15,9 +15,7 @@
 <ion-content padding>
 
   <div padding>
-    <!-- <img [src]="profileForm.photoURL || avatar" (click)="updateAvatar()"> -->
-    <img [src]="current.photoURL || avatar" (click)="updateAvatar()">
-
+    <img [src]="profileForm.photoURL || avatar" (click)="updateAvatar()">
   </div>
 
   <form padding (ngSubmit)="updateUser()" #form="ngForm" novalidate>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { AngularFire } from 'angularfire2';
 
 // servicios
 import { AuthData } from '../../providers/auth-data';
@@ -21,16 +22,14 @@ export class ProfilePage {
   }
   public avatar: string = "./assets/images/smiley-cyrus.jpg";
   public profile: any;
-  public current: any;
 
   constructor(
     public navCtrl: NavController,
     public authData: AuthData,
     public profileData: ProfileData,
-    public camera: CameraService
+    public camera: CameraService,
+    public af: AngularFire
   ) {
-    this.current = authData.currentUser();
-    console.log('usuario logueado', this.current);
     this.getProfileData();
   }
 
@@ -39,16 +38,23 @@ export class ProfilePage {
   }
 
   getProfileData(){
-    this.profileData.getProfile().subscribe(snapshot => {
-      this.profileForm = snapshot.val()
-      console.log('profileForm', this.profileForm);
-    });
+    // this.profileForm = {
+    //   firstName: this.profileData.currentProfile.firstName || '',
+    //   lastName: this.profileData.currentProfile.lastName || '',
+    //   bio: this.profileData.currentProfile.bio || '',
+    //   displayName: this.profileData.currentProfile.displayName || '',
+    //   birthDate: this.profileData.currentProfile.birthDate || ''
+    // }
+    if (this.profileData.currentProfile){
+      this.profileForm = this.profileData.currentProfile
+    } else {
+      console.log('no hay currentProfile');
+    }
   }
 
   updateUser(){
     console.log('update user', this.profileForm)
     this.profileData.updateProfile(this.profileForm);
-    this.authData.updateAuthProfile({displayName: this.profileForm.displayName});
   }
 
   updateAvatar(){
@@ -56,10 +62,18 @@ export class ProfilePage {
     this.camera.getImageUrl('avatar')
     .then((url) => {
       console.log('url update', url)
-      this.authData.updateAuthProfile({photoURL: url});
       this.profileData.updateProfile({photoURL: url});
     }, (err) => {
       console.log('err', err);
     })
   }
+
+  updateAvatar2(){
+    let refimage = firebase.storage().ref('/images');
+    console.log('ref imagen', refimage)
+    refimage.child(this.authData.current.uid).child('avatar')
+    .put(this.avatar);
+  }
+
+
 }

@@ -23,7 +23,8 @@
       "firstName": "Alejandro",
       "lastName": "Quadri",
       "birthDate": "1983-03-11",
-      "coach": "coachUid",
+      "coach": false,
+      "coachId": "coachUid",
       "bio": "Libertario, casi anarquista",
       "objetivo": "Sentirme saludable",
       "weightLogs": [

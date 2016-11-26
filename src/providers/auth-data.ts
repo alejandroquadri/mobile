@@ -1,21 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 
 @Injectable()
 export class AuthData {
-  public fireAuth: any;
+  public current: any;
   public userProfile: any;
 
-  constructor( public af: AngularFire ) {
-    this.userProfile = firebase.database().ref('/userProfile');
-    af.auth.subscribe( user => {
-      if (user) {
-        this.fireAuth = user.auth;
-        console.log('current user', user);
-      }
-    });
-  }
+  constructor( public af: AngularFire ) {}
 
   loginUser(newEmail: string, newPassword: string): any {
     return this.af.auth.login({ email: newEmail, password: newPassword });
@@ -33,19 +25,13 @@ export class AuthData {
   signupUser(newEmail: string, newPassword: string): any {
     return this.af.auth.createUser({ email: newEmail, password: newPassword })
     .then(newUser => {
-      this.userProfile.child(newUser.uid).set({email:newEmail, coach: false});
+      firebase.database().ref('/userProfile').child(newUser.uid)
+      .set({email:newEmail, coach: false});
     })
   }
 
-  currentUser():any {
-    return this.fireAuth;
-  }
-
-  updateAuthProfile(form){
-    return firebase.auth().currentUser.updateProfile(form)
-    .then((user) => {
-      console.log('usuario actualizado', user);
-    })
+  setCurrent(user){
+    return this.current = user;
   }
 
 }
