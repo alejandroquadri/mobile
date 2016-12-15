@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import * as moment from 'moment';
 
 /*
   Generated class for the Diary page.
@@ -13,10 +14,16 @@ import { NavController } from 'ionic-angular';
 })
 export class DiaryPage {
 
+  day: any = moment()
+
   constructor(public navCtrl: NavController) {}
 
   ionViewDidLoad() {
     console.log('Hello DiaryPage Page');
+  }
+
+  setDay(day){
+    this.day = day.date;
   }
 
 }
