@@ -17,6 +17,7 @@ import { CoachPage } from '../pages/coach/coach';
 
 // Components
 import { WeekCalendarComponent } from '../components/week-calendar/week-calendar';
+import { DiaryEntryComponent } from '../components/diary-entry/diary-entry';
 
 // providers importados
 import { AuthData } from '../providers/auth-data';
@@ -55,7 +56,8 @@ const myFirebaseAuthConfig = {
     ProfilePage,
     ProgressPage,
     CoachPage,
-    WeekCalendarComponent
+    WeekCalendarComponent,
+    DiaryEntryComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -77,7 +79,8 @@ const myFirebaseAuthConfig = {
     ProfilePage,
     ProgressPage,
     CoachPage,
-    WeekCalendarComponent
+    WeekCalendarComponent,
+    DiaryEntryComponent
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
