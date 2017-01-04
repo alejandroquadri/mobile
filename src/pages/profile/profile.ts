@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 
 // clases
@@ -24,17 +24,23 @@ export class ProfilePage {
     public authData: AuthData,
     public profileData: ProfileData,
     public camera: CameraService,
-    public af: AngularFire
+    public af: AngularFire,
+    public loadingCtrl: LoadingController
   ) {
     this.profileForm = new ProfileForm;
   }
 
   ionViewDidLoad() {
-    console.log('did load');
+    let loading = this.loadingCtrl.create({
+      content: 'Cargando...'
+    });
+    if (this.profileForm.firstName === '') { loading.present();}
+
     this.profileData.profileObs
     .subscribe( data => {
       console.log('actualiza');
       this.profileForm = data;
+      loading.dismiss();
     })
   }
 
@@ -64,5 +70,5 @@ export class ProfilePage {
       this.profileData.updateProfile(imageData);
     })
   }
-
+  
 }
