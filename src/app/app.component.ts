@@ -10,7 +10,6 @@ import { LoginPage } from '../pages/login/login';
 
 // providers
 import { AuthData } from '../providers/auth-data';
-import { ProfileData } from '../providers/profile-data';
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
@@ -22,9 +21,8 @@ export class MyApp {
     private platform: Platform,
     af: AngularFire,
     public authData: AuthData,
-    public profileData: ProfileData
+    //public profileData: ProfileData
   ) {
-
     // lo de abajo chequea que este el usuario loguedo
     // caso contrario lo manda a Loguearse
     af.auth.subscribe( user => {
@@ -38,11 +36,12 @@ export class MyApp {
         this.platformReady();
       }
     });
+
   }
 
   platformReady(){
     this.platform.ready().then(() => {
-      this.profileData.getProfile();
+
       StatusBar.styleDefault();
       Splashscreen.hide();
     })

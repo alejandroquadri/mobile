@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 // import { Slides } from 'ionic-angular';
 // import { ViewChild } from '@angular/core';
+import { CameraService } from '../../providers/camera-service';
 
 @Component({
   selector: 'diary-entry',
@@ -8,8 +9,10 @@ import { Component } from '@angular/core';
 })
 export class DiaryEntryComponent {
 
+  @Input() day: string;
   text: string;
   image: any = "./assets/images/desayuno.jpg";
+  
   mySlideOptions = {
     initialSlide: 0,
     loop: true,
@@ -34,7 +37,9 @@ export class DiaryEntryComponent {
     }
   ];
 
-  constructor() {
+  constructor(
+    public cameraService: CameraService
+  ) {
     console.log('Hello DiaryEntry Component');
     this.text = 'Hoy comi manzanas';
   }
@@ -46,6 +51,7 @@ export class DiaryEntryComponent {
 
   addPicture(){
     console.log("una foto mas");
+    this.cameraService.openActionSheet();
   }
 
 }

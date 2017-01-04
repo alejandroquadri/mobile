@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
 
 //servicios
 import { AuthData } from './auth-data';
@@ -9,25 +10,21 @@ import { AuthData } from './auth-data';
 export class ProfileData {
 
   currentProfile: any;
+  public profileObs: Observable<any>;
 
   constructor(
     public af: AngularFire,
     public authData: AuthData
-  ) {}
+  ) {
+    console.log('current user para profile-date', this.authData.current.uid);
+    this.profileObs = af.database.object(`/userProfile/${this.authData.current.uid}`);
 
-  updateProfile(form){
-    this.af.database.object(`/userProfile/${this.authData.current.uid}`)
-    .update(form)
   }
 
-  getProfile():any {
-    this.currentProfile = this.af.database.object(`/userProfile/${this.authData.current.uid}`, { preserveSnapshot: true })
-    .subscribe(snapshot => {
-      console.log('getProfile', snapshot)
-      console.log('getProfile con val', snapshot.val())
-      this.currentProfile = snapshot.val();
-      console.log('currentProfile', this.currentProfile)
-    });
+  updateProfile(form){
+    console.log('update profile en service', form);
+    this.af.database.object(`/userProfile/${this.authData.current.uid}`)
+    .update(form)
   }
 
 }

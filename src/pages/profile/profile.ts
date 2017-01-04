@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 
+// clases
+import { ProfileForm } from './profileForm';
+
 // servicios
 import { AuthData } from '../../providers/auth-data';
 import { ProfileData } from '../../providers/profile-data';
@@ -13,15 +16,8 @@ import { CameraService } from '../../providers/camera-service';
 })
 export class ProfilePage {
 
-  public profileForm: any = {
-    firstName: '',
-    lastName: '',
-    bio: '',
-    displayName: '',
-    birthDate: '',
-  }
-  public avatar: string = "./assets/images/smiley-cyrus.jpg";
-  public profile: any;
+  avatar: string = "./assets/images/smiley-cyrus.jpg";
+  profileForm: ProfileForm;
 
   constructor(
     public navCtrl: NavController,
@@ -30,50 +26,43 @@ export class ProfilePage {
     public camera: CameraService,
     public af: AngularFire
   ) {
-    this.getProfileData();
+    this.profileForm = new ProfileForm;
+  }
+
+  ionViewDidLoad() {
+    console.log('did load');
+    this.profileData.profileObs
+    .subscribe( data => {
+      console.log('actualiza');
+      this.profileForm = data;
+    })
   }
 
   logOut(){
     this.authData.logoutUser();
   }
 
-  getProfileData(){
-    // this.profileForm = {
-    //   firstName: this.profileData.currentProfile.firstName || '',
-    //   lastName: this.profileData.currentProfile.lastName || '',
-    //   bio: this.profileData.currentProfile.bio || '',
-    //   displayName: this.profileData.currentProfile.displayName || '',
-    //   birthDate: this.profileData.currentProfile.birthDate || ''
-    // }
-    if (this.profileData.currentProfile){
-      this.profileForm = this.profileData.currentProfile
-    } else {
-      console.log('no hay currentProfile');
-    }
-  }
-
   updateUser(){
-    console.log('update user', this.profileForm)
-    this.profileData.updateProfile(this.profileForm);
+    console.log('update user', this.profileForm);
+    let updateProfile = {
+      firstName :  this.profileForm.firstName || '',
+      lastName : this.profileForm.lastName || '',
+      bio : this.profileForm.bio || '',
+      displayName: this.profileForm.displayName || '',
+      birthDate: this.profileForm.birthDate || '',
+    }
+    console.log('form a actualizar', updateProfile);
+    this.profileData.updateProfile(updateProfile);
   }
 
   updateAvatar(){
-    console.log('update avatar');
-    this.camera.getImageUrl('avatar')
-    .then((url) => {
-      console.log('url update', url)
-      this.profileData.updateProfile({photoURL: url});
-    }, (err) => {
-      console.log('err', err);
+    this.camera.takePicture();
+    this.camera.imageData
+    .subscribe((imageData) => {
+      let vuelta = JSON.stringify(imageData);
+      console.log('data de observable', vuelta);
+      this.profileData.updateProfile(imageData);
     })
   }
-
-  updateAvatar2(){
-    let refimage = firebase.storage().ref('/images');
-    console.log('ref imagen', refimage)
-    refimage.child(this.authData.current.uid).child('avatar')
-    .put(this.avatar);
-  }
-
 
 }

@@ -40,3 +40,33 @@
   }
 }
 ```
+### Diary data
+
+```
+{
+  "diary": {
+    "uid":{
+      "20161001": {
+        "breakfast": [
+          {
+            "text":"Carne con papas",
+            "images": [
+              {
+                "url":"https://firebasestorage.googleapis.com/v0/...",
+                "path": "./folder/iphone/2039840239.jpg"
+              },
+              {
+                "url":"https://firebasestorage.googleapis.com/v0/...",
+                "path": "./folder/iphone/2039840239.jpg"
+              }
+            ],
+            "feedback": {
+              "icon": true,
+              "message": "link" //aca iria el link al mensaje en cuestion
+            }
+          }
+        ]
+      }
+    }
+  }
+}

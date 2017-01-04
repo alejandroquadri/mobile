@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
-// import firebase from 'firebase';
 
 @Injectable()
 export class AuthData {
   public current: any;
   public userProfile: any;
 
-  constructor( public af: AngularFire ) {}
+  constructor(
+    public af: AngularFire
+  ) {}
 
   loginUser(newEmail: string, newPassword: string): any {
     return this.af.auth.login({ email: newEmail, password: newPassword });
@@ -19,14 +20,17 @@ export class AuthData {
   }
 
   logoutUser(): any {
-    return this.af.auth.logout();
+    return this.af.auth.logout()
   }
 
   signupUser(newEmail: string, newPassword: string): any {
     return this.af.auth.createUser({ email: newEmail, password: newPassword })
     .then(newUser => {
-      firebase.database().ref('/userProfile').child(newUser.uid)
+      this.af.database.object(`/userProfile/${newUser.uid}`)
       .set({email:newEmail, coach: false});
+      //.update({email:newEmail, coach: false});
+      // podria escribir lo de arriba y tambien crea la direccion
+
     })
   }
 
@@ -35,3 +39,12 @@ export class AuthData {
   }
 
 }
+
+// usando firebase JS SDK
+// signupUser(newEmail: string, newPassword: string): any {
+//   return this.af.auth.createUser({ email: newEmail, password: newPassword })
+//   .then(newUser => {
+//     firebase.database().ref('/userProfile').child(newUser.uid)
+//     .set({email:newEmail, coach: false});
+//   })
+//  }
